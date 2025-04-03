@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Control Browser</title>
+
+    <style>
+        #circleR {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(255, 0, 0);
+            border-radius: 50%;
+        }
+
+        #circleG {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 0, 255);
+            border-radius: 50%;
+        }
+
+        #circleB {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 255, 0);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>RGB Ball That Follows Mouse</h1>
+    <div id="circleB"></div>
+    <div id="circleG"></div>
+    <div id="circleR"></div>
+    
+    <script>
+        const circleChannel = new BroadcastChannel('circle_channel')
+        const circleR = document.getElementById("circleR")
+        const circleG = document.getElementById("circleG")
+        const circleB = document.getElementById("circleB")
+
+        function circleMovement(event) {
+            const x = event.clientX, y = event.clientY
+            circleR.style.right = ""
+            circleR.style.left = x + 50 + "px"
+            circleR.style.top = y + "px"
+
+            circleG.style.right = ""
+            circleG.style.left = x + 25 + "px"
+            circleG.style.top = y + "px"
+
+            circleB.style.right = ""
+            circleB.style.left = x + "px"
+            circleB.style.top = y + "px"
+
+            circleChannel.postMessage({x, y})
+        }
+
+        circleChannel.onmessage = (event) => {
+            const {x, y} = event.data
+            circleR.style.right = x + 50 + "px"
+            circleR.style.left = ""
+            circleR.style.top = y + "px"
+
+            circleG.style.right = x + 25 + "px"
+            circleG.style.left = ""
+            circleG.style.top = y + "px"
+
+            circleB.style.right = x + "px"
+            circleB.style.left = ""
+            circleB.style.top = y + "px"
+        }
+        addEventListener("mousemove", circleMovement)
+    </script>
+</body>
+</html>
