@@ -6,6 +6,14 @@
     <title>Multiple Control Browser</title>
 
     <style>
+        @font-face {
+            font-family: 'Rubik';
+            src: url('fonts/Rubik-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
         #circleR {
             position: fixed;
             width: 100px;
@@ -29,10 +37,18 @@
             background-color: rgb(0, 255, 0);
             border-radius: 50%;
         }
+
+        .text {
+            font-family: 'Rubik', sans-serif;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1>RGB Ball That Follows Mouse</h1>
+    <div id="text">
+        <h1 id="l1">RGB Ball - Connecting</h1>
+        <h2 id="l2">Make sure you open these 2 tabs by aligning them</h2>
+    </div>
     <div id="circleB"></div>
     <div id="circleG"></div>
     <div id="circleR"></div>
@@ -42,6 +58,9 @@
         const circleR = document.getElementById("circleR")
         const circleG = document.getElementById("circleG")
         const circleB = document.getElementById("circleB")
+
+        const l1 = document.getElementById("l1")
+        const l2 = document.getElementById("l2")
 
         function circleMovement(event) {
             const x = event.clientX, y = event.clientY
@@ -56,6 +75,9 @@
             circleB.style.right = ""
             circleB.style.left = x + "px"
             circleB.style.top = y + "px"
+
+            l1.innerHTML = "CONNECTED"
+            l2.innerHTML = "Well, now the browser will be connected. <br> Enjoy this feature! <br> <br> #Tab-1 <br> This is a browser where you control the ball"
 
             circleChannel.postMessage({x, y})
         }
@@ -73,6 +95,9 @@
             circleB.style.right = x + "px"
             circleB.style.left = ""
             circleB.style.top = y + "px"
+
+            l1.innerHTML = "RGB BALL"
+            l2.innerHTML = "Inspired by @deaafrizal <br> Made by @dvnydev_ <br> <br> #Tab-2 <br> And this is the reflection back from your control."
         }
         addEventListener("mousemove", circleMovement)
     </script>
