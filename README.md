@@ -1,24 +1,30 @@
-# RGB Balls That Follow Your Mouse Across Multiple Browsers
-This project demonstrates an interactive web application where three RGB-colored balls (Red, Green, Blue) dynamically follow the mouse pointer. The movement of the balls is synchronized across multiple browser windows using the BroadcastChannel API, enabling real-time communication between tabs. Additionally, in a secondary browser window, the balls move in the opposite direction, creating a visually engaging and interactive experience.
+# Cyberpunk RGB Balls - Multi-Browser Sync
 
-## Features:
-  Mouse Tracking: The three balls follow the mouse pointer in real-time.
+A futuristic interactive experience where neon balls follow your mouse across browser tabs.
 
-- Multi-Browser Synchronization: Using BroadcastChannel, mouse movements are shared across browser windows.
+## Key Features
+- 🚀 Cyberpunk neon glow effects
+- ⚡ Optimized for smooth performance
+- 🔄 Real-time sync between browser tabs
+- 🖱️ Mouse tracking with mirrored movement
+- 🎨 Vibrant color scheme with scanlines
 
-- Reverse Movement: In secondary browser windows, the balls move in the opposite direction of the primary window's movement.
+## Tech Stack
+- **Frontend**: HTML5, CSS3 (animations), JavaScript
+- **API**: BroadcastChannel for cross-tab communication
+- **Design**: Rajdhani font, radial gradients, minimal animations
 
-- Interactive Design: Smooth animations and vibrant RGB colors enhance user experience.
+## How to Use
+1. Open `index.html` in two browser windows
+2. Position windows side-by-side
+3. Move your mouse in one window to see the effect
 
-## Technologies Used:
-- HTML & CSS: For structuring and styling the webpage.
+## Performance Optimizations
+- Used `will-change` for smoother animations
+- Simplified visual effects
+- Reduced DOM reflows
+- Lightweight CSS transitions
 
-- JavaScript: For implementing mouse tracking and inter-browser communication.
-
-- BroadcastChannel API: To synchronize movements across multiple browser windows.
-
-## How It Works:
-  1. The primary browser window captures mouse movements using the mousemove event.
-  2. The positions of the balls are updated dynamically based on the cursor's location.
-  3. The BroadcastChannel API sends these coordinates to other browser windows.
-  4. Secondary browser windows receive the data and animate the balls in reverse directions.
+## Credits
+Inspired by @deaafrizal
+Developed by @dvnydev_
