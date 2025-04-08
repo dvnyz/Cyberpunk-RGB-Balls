@@ -9,8 +9,8 @@
         body {
             background-color: #0a0a1a;
             background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 30px 30px;
             overflow: hidden;
             color: #00f7ff;
@@ -18,8 +18,8 @@
             height: 100vh;
             font-family: 'Rajdhani', sans-serif;
             position: relative;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
         }
 
         #circleR, #circleG, #circleB {
@@ -29,21 +29,40 @@
             border-radius: 50%;
             transition: transform 0.1s ease-out;
             will-change: transform;
+            filter: blur(0.5px);
         }
 
         #circleR {
             background: radial-gradient(circle, rgba(255,0,255,0.9) 0%, rgba(255,0,255,0) 70%);
-            box-shadow: 0 0 20px #ff00ff;
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px rgba(255,0,255,0.3);
+            animation: pulseR 2s infinite;
         }
 
         #circleG {
             background: radial-gradient(circle, rgba(0,255,255,0.9) 0%, rgba(0,255,255,0) 70%);
-            box-shadow: 0 0 20px #00ffff;
+            box-shadow: 0 0 20px #00ffff, 0 0 40px rgba(0,255,255,0.3);
+            animation: pulseG 2s infinite;
         }
 
         #circleB {
             background: radial-gradient(circle, rgba(255,255,0,0.9) 0%, rgba(255,255,0,0) 70%);
-            box-shadow: 0 0 20px #ffff00;
+            box-shadow: 0 0 20px #ffff00, 0 0 40px rgba(255,255,0,0.3);
+            animation: pulseB 2s infinite;
+        }
+
+        @keyframes pulseR {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes pulseG {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes pulseB {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.07); }
         }
 
         #text {
@@ -54,22 +73,26 @@
             transform: translate(-50%, -50%);
             width: 100%;
             text-shadow: 0 0 5px currentColor;
-        }
-
-        h1, h2 {
-            margin: 0.5em 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #ff00ff;
             font-weight: 700;
             animation: glitch 2s infinite;
+            letter-spacing: 2px;
         }
 
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #00ffff;
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
         .scanline {
@@ -78,21 +101,23 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: rgba(0, 255, 255, 0.5);
+            background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.5), transparent);
             animation: scan 2s linear infinite;
             pointer-events: none;
             z-index: 100;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 3px;
+            height: 3px;
             background: #00ffff;
             border-radius: 50%;
             pointer-events: none;
             filter: blur(1px);
             animation: float 5s infinite ease-in-out;
+            box-shadow: 0 0 10px #00ffff;
         }
 
         @keyframes float {
@@ -114,9 +139,294 @@
             0% { top: 0; }
             100% { top: 100%; }
         }
+
+        .corner-decoration {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        .corner-decoration.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.top-right {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .corner-decoration::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+
+        .corner-decoration.top-left::before {
+            top: -5px;
+            left: -5px;
+        }
+
+        .corner-decoration.top-right::before {
+            top: -5px;
+            right: -5px;
+        }
+
+        .corner-decoration.bottom-left::before {
+            bottom: -5px;
+            left: -5px;
+        }
+
+        .corner-decoration.bottom-right::before {
+            bottom: -5px;
+            right: -5px;
+        }
+
+        .glitch-line {
+            position: fixed;
+            height: 1px;
+            background: rgba(0, 255, 255, 0.2);
+            animation: glitchLine 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glitchLine {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(10px); }
+            50% { transform: translateX(-10px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .data-stream {
+            position: fixed;
+            color: rgba(0, 255, 255, 0.15);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            animation: dataStream 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes dataStream {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .hologram-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, rgba(0, 255, 255, 0.03) 100%),
+                linear-gradient(45deg, transparent 0%, rgba(0, 255, 255, 0.03) 50%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .tech-circle {
+            position: fixed;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: techCircleRotate 20s linear infinite;
+        }
+
+        .tech-circle::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .terminal-text {
+            position: fixed;
+            font-family: 'Orbitron', monospace;
+            color: rgba(0, 255, 255, 0.3);
+            font-size: 0.7rem;
+            white-space: nowrap;
+            animation: terminalTyping 4s steps(40) infinite;
+            overflow: hidden;
+            border-right: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .tech-grid {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .floating-card {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        .tech-line {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+            animation: linePulse 3s infinite;
+        }
+
+        .status-indicator {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            animation: statusBlink 2s infinite;
+        }
+
+        .modern-china {
+            display: none;
+        }
+
+        .tech-lantern {
+            display: none;
+        }
+
+        .dragon-curve {
+            display: none;
+        }
+
+        .energy-pulse {
+            display: none;
+        }
+
+        .tech-border {
+            display: none;
+        }
+
+        .chinese-pattern {
+            display: none;
+        }
+
+        .modern-text {
+            display: none;
+        }
+
+        .tech-panel {
+            display: none;
+        }
+
+        .status-bar {
+            display: none;
+        }
+
+        .modern-ui {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .tech-line {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+            animation: linePulse 3s infinite;
+        }
+
+        @keyframes linePulse {
+            0% { width: 0%; opacity: 0; }
+            50% { width: 100%; opacity: 0.3; }
+            100% { width: 0%; opacity: 0; }
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.2; }
+        }
+
+        @keyframes techCircleRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <div class="modern-ui">
+        <div class="tech-grid"></div>
+        
+        <div class="floating-card" style="top: 10%; left: 50%; transform: translateX(-50%);">
+            <div class="modern-text">SYSTEM READY</div>
+            <div class="tech-line" style="top: 100%;"></div>
+        </div>
+        
+        <div class="floating-card" style="bottom: 10%; right: 5%;">
+            <div class="modern-text">CONNECTION ACTIVE</div>
+            <div class="status-indicator" style="top: 50%; right: 10px; transform: translateY(-50%);"></div>
+        </div>
+        
+        <div class="tech-line" style="top: 30%;"></div>
+        <div class="tech-line" style="top: 70%;"></div>
+    </div>
+
+    <div class="hologram-grid"></div>
+    
+    <div class="tech-circle" style="top: 20%; left: 20%; width: 200px; height: 200px;">
+        <div class="tech-circle" style="width: 150px; height: 150px; top: 25px; left: 25px;"></div>
+    </div>
+    
+    <div class="tech-circle" style="top: 60%; right: 20%; width: 150px; height: 150px;">
+        <div class="tech-circle" style="width: 100px; height: 100px; top: 25px; left: 25px;"></div>
+    </div>
+    
+    <div class="terminal-text" style="top: 10%; left: 10%;">> INITIALIZING NEURAL NETWORK...</div>
+    <div class="terminal-text" style="top: 15%; right: 10%;">> CONNECTING TO CYBERSPACE...</div>
+    
+    <div class="tech-border" style="top: 40%; left: 10%; width: 80%; height: 20%;"></div>
+    <div class="tech-border" style="top: 40%; left: 10%; width: 20%; height: 80%;"></div>
+    
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    
+    <div class="glitch-line" style="top: 30%; left: 0; width: 100%;"></div>
+    <div class="glitch-line" style="top: 70%; left: 0; width: 100%;"></div>
+    
+    <div class="data-stream" style="left: 10%;">01010101 01101000 01100001 01100011 01101011</div>
+    <div class="data-stream" style="left: 30%;">01101000 01100001 01100011 01101011 01100101</div>
+    <div class="data-stream" style="left: 50%;">01110010 01110011 00100000 01100001 01110010</div>
+    <div class="data-stream" style="left: 70%;">01100101 00100000 01110111 01100001 01110100</div>
+    <div class="data-stream" style="left: 90%;">01100011 01101000 01101001 01101110 01100111</div>
     <div id="text">
         <h1 id="l1">RGB Ball - Connecting</h1>
         <h2 id="l2">Make sure you open these 2 tabs by aligning them</h2>
